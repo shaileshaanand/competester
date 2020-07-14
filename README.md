@@ -118,4 +118,4 @@ pyinstaller -F run.py
 -   [ ] Add more metadata to setup.py
 -   [ ] Add more language support
 
-Made ♥️ by [**Shailesh Aanand**](https://github.com/shaileshaanand/)
+Made with ♥️ by [**Shailesh Aanand**](https://github.com/shaileshaanand/)
