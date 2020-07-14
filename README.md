@@ -2,6 +2,8 @@
 
 A python cli tool to test a program against test cases for some desired output.
 
+<img src="https://raw.githubusercontent.com/shaileshaanand/competester/master/docs/images/first.svg"/>
+
 -   [INSTALLATION](#installation)
 -   [DESCRIPTION & USAGE](#description-&-usage)
 -   [TEST CASES FORMAT](#test-cases-format)
