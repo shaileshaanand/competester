@@ -19,8 +19,7 @@ def pypy(program_file, input_data):
 
 def java(program_file, input_data):
     program_file = pathlib.Path(program_file).resolve()
-    print(program_file.suffix)
-    if program_file.suffix != "java":
+    if program_file.suffix != ".java":
         raise BadParameter(
             f"for java PROGRAM_FILE extention should be .java not {program_file.suffix}")
     classname = program_file.stem
