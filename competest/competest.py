@@ -1,6 +1,7 @@
 import click
 import sys
 import json
+import pathlib
 from time import time
 
 if sys.platform == "linux":
@@ -44,6 +45,7 @@ def competest(language, program_file, test_cases):
     for i, test_case in enumerate(test_cases, 1):
         input_data = "\n".join(test_case["input"]).encode()
         required_output = "\n".join(test_case["output"])
+        program_file = pathlib.Path(program_file).resolve()
         start_time = time()
         process = languages[language](program_file, input_data)
         time_taken = time()-start_time
