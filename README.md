@@ -1,6 +1,7 @@
 # competester
 
-A python cli tool to test a program against test cases for some desired output.
+*A python cli tool to test competitive programming solutions(code) against multiple test cases and measure execution time.*
+This tool becomes handy when the programmer is dealing with a problem having larger amount of test cases.
 
 <img src="https://raw.githubusercontent.com/shaileshaanand/competester/master/docs/images/first.svg"/>
 
@@ -15,7 +16,7 @@ A python cli tool to test a program against test cases for some desired output.
 
 To install it using [pip](https://pip.pypa.io/) (for Linux, MacOS and Windows users)
 
-`sudo pip install --upgrade competest`
+`sudo pip3 install --upgrade competest`
 
 Alternatively, Windows users can download the latest competest.exe file from [releases](https://github.com/shaileshaanand/competester/releases/tag/v0.0.4).
 
@@ -117,4 +118,4 @@ pyinstaller -F run.py
 -   [ ] Add more metadata to setup.py
 -   [ ] Add more language support
 
-Made by Shailesh Aanand
+Made ♥️ by [**Shailesh Aanand**](https://github.com/shaileshaanand/)
