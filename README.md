@@ -23,6 +23,7 @@ Alternatively, Windows users can download the latest competest.exe file from [re
 # DESCRIPTION & USAGE
 
 competest is a command line program to test competitive coding problems for test cases. It requires python 3.6+ to be installed. It is licensed under GPL-v3 License.
+As of now, supported Languages are: java, python, pypy and exe(i.e. compiled executables)
 
 Usage:
 
