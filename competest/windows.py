@@ -24,7 +24,7 @@ def java(program_file, input_data):
             f"for java PROGRAM_FILE extention should be .java not {program_file.suffix}")
     classname = program_file.stem
     program_path = program_file.parent
-    subprocess.run(["javac", program_file])
+    subprocess.run(["javac", str(program_file)])
     return subprocess.run(["java", "-classpath", str(program_path), classname],
                           input=input_data,
                           capture_output=True,
