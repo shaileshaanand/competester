@@ -1,7 +1,7 @@
 # competester
 
 _A python cli tool to test competitive programming solutions(code) against multiple test cases and measure execution time._
-This tool becomes handy when the programmer is dealing with a problem having larger amount of test cases.
+This tool comes handy when the programmer is dealing with a problem having larger amount of test cases.
 
 <img src="https://raw.githubusercontent.com/shaileshaanand/competester/master/docs/images/first.svg"/>
 
