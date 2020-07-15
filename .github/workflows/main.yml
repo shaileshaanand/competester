@@ -55,7 +55,7 @@ jobs:
         runs-on: ubuntu-latest
         name: Publish to pypi
         needs: [test_linux, test_windows]
-        if: github.event == release
+        if: github.event == 'release'
         steps:
             - uses: actions/checkout@v2
             - name: Set up Python
