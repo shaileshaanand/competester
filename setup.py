@@ -6,7 +6,7 @@ with open(README_path, "r", errors="ignore") as README_file:
     README = README_file.read()
 setup(
     name='competest',
-    version='0.0.7',
+    version='0.0.8',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
