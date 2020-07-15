@@ -1,6 +1,6 @@
 # competester
 
-*A python cli tool to test competitive programming solutions(code) against multiple test cases and measure execution time.*
+_A python cli tool to test competitive programming solutions(code) against multiple test cases and measure execution time._
 This tool becomes handy when the programmer is dealing with a problem having larger amount of test cases.
 
 <img src="https://raw.githubusercontent.com/shaileshaanand/competester/master/docs/images/first.svg"/>
@@ -24,7 +24,12 @@ Alternatively, Windows users can download the latest competest.exe file from [re
 
 competest is a command line program to test competitive coding problems for test cases. It requires python 3.6+ to be installed. It is licensed under GPL-v3 License.
 
-As of now, supported Languages are: java, python, pypy and exe(i.e. compiled executables)
+As of now, supported Languages are:
+
+-   java
+-   python
+-   pypy
+-   exe(i.e. compiled executables)
 
 Usage:
 
