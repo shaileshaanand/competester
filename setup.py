@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import pathlib
 HERE = pathlib.Path(__file__).parent
 README_path = (HERE / "README.md")
-with open(README_path, "r") as README_file:
+with open(README_path, "r", errors="ignore") as README_file:
     README = README_file.read()
 setup(
     name='competest',
