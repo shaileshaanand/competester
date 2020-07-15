@@ -18,13 +18,8 @@ def pypy(program_file, input_data):
 
 
 def java(program_file, input_data):
-    program_file = pathlib.Path(program_file).resolve()
-    if program_file.suffix != ".java":
-        raise BadParameter(
-            f"for java PROGRAM_FILE extention should be .java not {program_file.suffix}")
     classname = program_file.stem
     program_path = program_file.parent
-    subprocess.run(["javac", str(program_file)])
     return subprocess.run(["java", "-classpath", str(program_path), classname],
                           input=input_data,
                           capture_output=True,
