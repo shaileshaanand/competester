@@ -3,7 +3,7 @@ import sys
 import json
 import pathlib
 from time import time
-
+from .parsers import parse_cases_json, parse_cases_txt
 if sys.platform == "linux":
     from .linux import (
         python,
@@ -33,7 +33,10 @@ def competest(language, program_file, test_cases):
     """Run PROGRAM_FILE with test cases from the file specified in --test-cases (or -t) option and check them against the correct output specified in the same file.
 
        Supported Languages: java, python, pypy and exe(i.e. compiled executables)"""
-    test_cases = json.loads(test_cases.read())
+    if test_cases.name.endswith(".json"):
+        test_cases = parse_cases_json(test_cases)
+    elif test_cases.name.endswith(".txt"):
+        test_cases = parse_cases_txt(test_cases)
     total_cases = len(test_cases)
     failed_cases = 0
     languages = {
