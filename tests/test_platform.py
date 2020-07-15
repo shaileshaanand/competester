@@ -4,7 +4,7 @@ import subprocess
 import sys
 import os
 from competest import parsers
-
+from competest import competest
 if sys.platform == "linux":
     import competest.linux as platform
 else:
@@ -36,8 +36,9 @@ class TestJava(unittest.TestCase):
     def test_single(self):
         java_file_path = pathlib.Path(os.path.join(
             THIS_DIR, "test_programs", "test_java_sample.java")).resolve()
+        file_to_run = competest.compile_if_needed(java_file_path, "java")
         process = platform.java(
-            java_file_path, "Hello World".strip().encode())
+            file_to_run, "Hello World".strip().encode())
         self.assertEqual(
             process.stdout.decode().strip().replace('\r', ''), "Hello World")
 
@@ -64,29 +65,23 @@ class TestParsers(unittest.TestCase):
             '[{"input":["1","2"],"output":["5","3"]},{"input":["ab"],"output":["aa"]}]')), [{'input': ['1', '2'], 'output': ['5', '3']}, {'input': ['ab'], 'output':['aa']}])
 
     def test_parse_cases_txt(self):
-        self.assertEqual(parsers.parse_cases_txt(DummyFile(
-            """
-1
-2
+        self.assertEqual(parsers.parse_cases_txt(DummyFile("1\n2\n\n5\n3".strip())), [
+                         {'input': ['1', '2'], 'output': ['5', '3']}])
+        self.assertEqual(parsers.parse_cases_txt(DummyFile("1\n2\n\n5\n3\n\nab\n\naa".strip())), [
+                         {'input': ['1', '2'], 'output': ['5', '3']}, {'input': ['ab'], "output": ['aa']}])
 
-5
-3
-            """.strip()
-        )), [{'input': ['1', '2'], 'output': ['5', '3']}])
 
-        self.assertEqual(parsers.parse_cases_txt(DummyFile(
-            """
-1
-2
+class TestMain(unittest.TestCase):
+    def get_test_cases_test(self):
+        self.assertEqual(competest.get_test_cases(DummyFile(
+            '[{"input":["1","2"],"output":["5","3"]}]', "cases.json")), [{'input': ['1', '2'], 'output': ['5', '3']}])
+        self.assertEqual(competest.get_test_cases(DummyFile(
+            '[{"input":["1","2"],"output":["5","3"]},{"input":["ab"],"output":["aa"]}]', "cases.json")), [{'input': ['1', '2'], 'output': ['5', '3']}, {'input': ['ab'], 'output':['aa']}])
 
-5
-3
-
-ab
-
-aa
-            """.strip()
-        )), [{'input': ['1', '2'], 'output': ['5', '3']}, {'input': ['ab'], "output": ['aa']}])
+    def test_compile_if_needed(self):
+        java_file_path = pathlib.Path(os.path.join(
+            THIS_DIR, "test_programs", "test_java_sample.java")).resolve()
+        competest.compile_if_needed(java_file_path, "java")
 
 
 if __name__ == "__main__":

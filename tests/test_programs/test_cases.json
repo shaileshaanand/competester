@@ -1,0 +1,10 @@
+[
+    {
+        "input": ["HelloWorld"],
+        "output": ["HelloWorld"]
+    },
+    {
+        "input": ["123"],
+        "output": ["123"]
+    }
+]
