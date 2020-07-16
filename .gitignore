@@ -139,3 +139,5 @@ cython_debug/
 .vscode
 *.class
 *.exe
+test_cpp_sample
+test_exe_sample
