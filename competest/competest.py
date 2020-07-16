@@ -51,23 +51,24 @@ else:
               type=click.File("r"),
               help="File containing test cases.",
               required=True)
-def competest(language, program_file, test_cases):
+@click.option("--compiler-args", "-a")
+def competest(language, program_file, test_cases, compiler_args):
     """Run PROGRAM_FILE with test cases from the file specified in --test-cases
     (or -t) option and check them against the correct output specified in the
     same file.
 
        Supported Languages: java, python, pypy and exe(i.e. compiled
        executables)"""
-    main(language, program_file, test_cases)
+    main(language, program_file, test_cases, compiler_args)
 
 
-def main(language, program_file, test_cases):
+def main(language, program_file, test_cases, compiler_args):
     program_file = pathlib.Path(program_file).resolve()
     test_cases = get_test_cases(test_cases)
     if test_cases == "error":
         raise BadParameter(
             "invalid testcase file extension, should be .json or .txt")
-    file_to_run = compile_if_needed(program_file, language)
+    file_to_run = compile_if_needed(program_file, language, compiler_args)
     total_cases = len(test_cases)
     failed_cases = 0
     languages = {
@@ -119,14 +120,14 @@ def get_test_cases(tests_file):
     return test_cases
 
 
-def compile_if_needed(program_file, language):
+def compile_if_needed(program_file, language, compiler_args):
     file_to_run = program_file
     if language == "java":
-        java_compile(program_file)
+        java_compile(program_file, compiler_args)
         file_to_run = program_file.with_suffix(".class")
     elif language == "c":
-        file_to_run = c_compile(program_file)
+        file_to_run = c_compile(program_file, compiler_args)
     elif language == "cpp":
-        file_to_run = cpp_compile(program_file)
+        file_to_run = cpp_compile(program_file, compiler_args)
 
     return file_to_run

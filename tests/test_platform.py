@@ -82,7 +82,7 @@ class TestMainUtils(unittest.TestCase):
         )
 
     def test_compile_if_needed(self):
-        competest.compile_if_needed(java_file_path, "java")
+        competest.compile_if_needed(java_file_path, "java", None)
 
 
 class TestMainPython(unittest.TestCase):
@@ -104,6 +104,15 @@ class TestMainJava(unittest.TestCase):
         )
         self.assertTrue("All tests passed successfully." in result.output)
 
+    def test_main_java_args(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            competest.competest,
+            ["java", str(java_file_path), "-t",
+             test_case_file_path, "-a", "-encoding UTF-8"]
+        )
+        self.assertTrue("All tests passed successfully." in result.output)
+
 
 class TestMainC(unittest.TestCase):
     def test_main_c(self):
@@ -114,6 +123,14 @@ class TestMainC(unittest.TestCase):
         )
         self.assertTrue("All tests passed successfully." in result.output)
 
+    def test_main_c_args(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            competest.competest,
+            ["c", str(c_source_path), "-t", test_case_file_path, "-a", "-O2"]
+        )
+        self.assertTrue("All tests passed successfully." in result.output)
+
 
 class TestMainCpp(unittest.TestCase):
     def test_main_cpp(self):
@@ -121,6 +138,15 @@ class TestMainCpp(unittest.TestCase):
         result = runner.invoke(
             competest.competest,
             ["cpp", str(cpp_source_path), "-t", test_case_file_path]
+        )
+        self.assertTrue("All tests passed successfully." in result.output)
+
+    def test_main_cpp_args(self):
+        runner = CliRunner()
+        result = runner.invoke(
+            competest.competest,
+            ["cpp", str(cpp_source_path), "-t",
+             test_case_file_path, "-a", "-lm"]
         )
         self.assertTrue("All tests passed successfully." in result.output)
 
