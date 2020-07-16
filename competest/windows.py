@@ -1,6 +1,4 @@
 import subprocess
-import pathlib
-from click import BadParameter
 
 
 def python(program_file, input_data):
@@ -27,6 +25,20 @@ def java(program_file, input_data):
 
 
 def exe(program_file, input_data):
+    return subprocess.run([str(program_file)],
+                          input=input_data,
+                          capture_output=True,
+                          shell=True)
+
+
+def c(program_file, input_data):
+    return subprocess.run([str(program_file)],
+                          input=input_data,
+                          capture_output=True,
+                          shell=True)
+
+
+def cpp(program_file, input_data):
     return subprocess.run([str(program_file)],
                           input=input_data,
                           capture_output=True,
