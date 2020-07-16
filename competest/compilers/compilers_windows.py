@@ -18,11 +18,11 @@ def java_compile(program_file, compiler_args):
 
 def c_compile(program_file, compiler_args):
     output_file = program_file.with_suffix(".exe")
-    c_compile_common(str(program_file), str(output_file))
+    c_compile_common(str(program_file), str(output_file), compiler_args)
     return output_file
 
 
 def cpp_compile(program_file, compiler_args):
     output_file = program_file.with_suffix(".exe")
-    cpp_compile_common(str(program_file), str(output_file))
+    cpp_compile_common(str(program_file), str(output_file), compiler_args)
     return output_file
