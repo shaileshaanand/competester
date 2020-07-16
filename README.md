@@ -1,7 +1,9 @@
 # competester
 
-_A python cli tool to test competitive programming solutions(code) against multiple test cases and measure execution time._
-This tool comes handy when the programmer is dealing with a problem having larger amount of test cases.
+## A python cli tool to test competitive programming solutions(code) against multiple test cases and measure execution time.
+
+This tool comes handy when the programmer is dealing with a problem having
+larger amount of test cases.
 
 <img src="https://raw.githubusercontent.com/shaileshaanand/competester/master/docs/images/first.svg"/>
 
@@ -9,6 +11,7 @@ This tool comes handy when the programmer is dealing with a problem having large
 -   [DESCRIPTION & USAGE](#description-&-usage)
 -   [TEST CASES FORMAT](#test-cases-format)
 -   [OPTIONS](#options)
+-   [COMPILATION](#compilation)
 -   [BUILD INSTRUCTIONS](#build-instructions)
 -   [TODO](#todo)
 
@@ -18,7 +21,8 @@ To install it using [pip](https://pip.pypa.io/) (for Linux, MacOS and Windows us
 
 `sudo pip3 install --upgrade competest`
 
-Alternatively, Windows users can download the latest competest.exe file from [releases](https://github.com/shaileshaanand/competester/releases/tag/v0.0.4).
+Alternatively, Windows users can download the latest competest.exe file from
+[releases](https://github.com/shaileshaanand/competester/releases/tag/v0.0.4).
 
 # DESCRIPTION & USAGE
 
@@ -42,7 +46,46 @@ competest python program.py -t test_cases.json
 
 # TEST CASES FORMAT
 
-Test cases are written in json format like this:
+The test case file should contain all the test cases that you want to test your
+code against.
+
+Note: The test case format is decided based on the file extension so the file
+extension must be `.txt` or `.json`.
+
+## Test Cases can be written in 2 formats:
+
+## 1. Test cases can be in .txt format like this
+
+### Single Test Case:
+
+```
+5
+3 2 4 5 6
+
+2
+12
+```
+
+Note: input is followed by output and separated by a blank line.
+
+### Multiple Test Cases:
+
+```
+5
+3 2 4 5 6
+
+2
+12
+
+7
+3 2 4 5 6 10 16
+
+10
+```
+
+## Note: Each test case is also separated by a blank line.
+
+## 2. Test cases can be in json format like this:
 
 ```
 [
@@ -90,8 +133,38 @@ Note: `input` and `output` are arrays of strings where each string is a line of 
 # OPTIONS
 
 ```
- -t, --test-cases FILENAME    File containing test cases.  [required]
- -h, --help                   Show this message and exit.
+ -t, --test-cases FILENAME          File containing test cases.  [required]
+
+ -a, --compiler-args ARGUMENTS      command line arguments to be passed to
+                                    compiler(for compiled languages only)
+
+ -h, --help                         Show this message and exit.
+```
+
+# COMPILATION
+
+You can pass extra arguments and flags to the compiler using `-a` option.
+Don't pass `-o` flag to C/C++ compiler as it is not required and handled
+by the tool itself.
+
+### The default compilation commands are:
+
+Java
+
+```
+javac classname.java
+```
+
+C
+
+```
+gcc -O2 -lm filename.c
+```
+
+C++
+
+```
+g++ -O2 -lm filename.cpp
 ```
 
 # BUILD INSTRUCTIONS
@@ -120,9 +193,9 @@ pyinstaller -F run.py
 
 # TODO
 
--   [ ] Add a simpler test case format
+-   [x] ~~Add a simpler test case format~~
 -   [ ] Improve Documentation
--   [ ] Add more metadata to setup.py
+-   [x] ~~Add more metadata to setup.py~~
 -   [ ] Add more language support
 
 Made with ♥️ by [**Shailesh Aanand**](https://github.com/shaileshaanand/)
