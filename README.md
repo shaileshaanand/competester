@@ -30,6 +30,8 @@ competest is a command line program to test competitive coding problems for test
 
 As of now, supported Languages are:
 
+-   C
+-   C++
 -   java
 -   python
 -   pypy
