@@ -2,8 +2,6 @@ name: Test and Deploy
 on:
     push:
     pull_request:
-    release:
-        types: [created]
 jobs:
     test_linux:
         name: Linux Tests
