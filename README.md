@@ -5,6 +5,8 @@
 This tool comes handy when the programmer is dealing with a problem having
 larger amount of test cases.
 
+![Test and Deploy](https://github.com/shaileshaanand/competester/workflows/Test%20and%20Deploy/badge.svg)
+
 <img src="https://raw.githubusercontent.com/shaileshaanand/competester/master/docs/images/first.svg"/>
 
 -   [INSTALLATION](#installation)
