@@ -1,5 +1,4 @@
 import subprocess
-from click import BadParameter
 
 
 def python(program_file, input_data):
@@ -23,6 +22,18 @@ def java(program_file, input_data):
 
 
 def exe(program_file, input_data):
+    return subprocess.run([program_file],
+                          input=input_data,
+                          capture_output=True)
+
+
+def c(program_file, input_data):
+    return subprocess.run([program_file],
+                          input=input_data,
+                          capture_output=True)
+
+
+def cpp(program_file, input_data):
     return subprocess.run([program_file],
                           input=input_data,
                           capture_output=True)

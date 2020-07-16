@@ -1,25 +1,36 @@
 import click
 import sys
-import json
 import pathlib
 from time import time
 from click import BadParameter
 from .parsers import parse_cases_json, parse_cases_txt
 if sys.platform == "linux":
-    from .compilers.compilers_linux import java_compile
+    from .compilers.compilers_linux import (
+        java_compile,
+        c_compile,
+        cpp_compile
+    )
     from .linux import (
         python,
         java,
         pypy,
-        exe
+        exe,
+        c,
+        cpp
     )
 elif sys.platform == "win32":
-    from .compilers.compilers_windows import java_compile
+    from .compilers.compilers_windows import (
+        java_compile,
+        c_compile,
+        cpp_compile
+    )
     from .windows import (
         python,
         java,
         pypy,
-        exe
+        exe,
+        c,
+        cpp
     )
 else:
     raise Exception
@@ -29,13 +40,24 @@ else:
                context_settings={
                    "help_option_names": ['-h', '--help']
                })
-@click.argument("language", type=click.Choice(["python", "java", "pypy", "exe"]), required=True)
-@click.argument("program_file", type=click.Path(exists=True), required=True)
-@click.option("--test-cases", "-t", type=click.File("r"), help="File containing test cases.", required=True)
+@click.argument("language",
+                type=click.Choice(
+                    ["python", "java", "pypy", "c", "cpp", "exe"]),
+                required=True)
+@click.argument("program_file",
+                type=click.Path(exists=True),
+                required=True)
+@click.option("--test-cases", "-t",
+              type=click.File("r"),
+              help="File containing test cases.",
+              required=True)
 def competest(language, program_file, test_cases):
-    """Run PROGRAM_FILE with test cases from the file specified in --test-cases (or -t) option and check them against the correct output specified in the same file.
+    """Run PROGRAM_FILE with test cases from the file specified in --test-cases
+    (or -t) option and check them against the correct output specified in the
+    same file.
 
-       Supported Languages: java, python, pypy and exe(i.e. compiled executables)"""
+       Supported Languages: java, python, pypy and exe(i.e. compiled
+       executables)"""
     main(language, program_file, test_cases)
 
 
@@ -52,7 +74,9 @@ def main(language, program_file, test_cases):
         "python": python,
         "java": java,
         "pypy": pypy,
-        "exe": exe
+        "exe": exe,
+        "c": c,
+        "cpp": cpp
     }
 
     for i, test_case in enumerate(test_cases, 1):
@@ -60,27 +84,29 @@ def main(language, program_file, test_cases):
         required_output = "\n".join(test_case["output"])
         start_time = time()
         process = languages[language](file_to_run, input_data)
-        time_taken = time()-start_time
+        time_taken = time() - start_time
         actual_output = process.stdout.decode().strip().replace('\r', '')
         if process.returncode == 0 and required_output == actual_output:
-            print(f"Test Case {i} Passed and took {time_taken:.3f} seconds  ✅")
+            click.echo(
+                f"Test Case {i} Passed and took {time_taken:.3f} seconds  ✅")
         else:
             failed_cases += 1
-            print(f"Test Case {i} Failed ❎")
+            click.echo(f"Test Case {i} Failed ❎")
             if process.returncode == 0:
-                print(f"Required Output:\n{required_output}\n---------------")
-                print(
+                click.echo(
+                    f"Required Output:\n{required_output}\n---------------")
+                click.echo(
                     f"Actual Output:\n{actual_output}\n---------------\n(took {time_taken:.3f} seconds)\n")
             else:
-                print("---------------")
-                print(f"Runtime Error: (took {time_taken:.3f} seconds)")
-                print(process.stderr.decode().strip())
-                print("---------------\n")
+                click.echo("---------------")
+                click.echo(f"Runtime Error: (took {time_taken:.3f} seconds)")
+                click.echo(process.stderr.decode().strip())
+                click.echo("---------------\n")
 
     if failed_cases == 0:
-        print("All tests passed successfully. ✅")
+        click.echo("All tests passed successfully. ✅")
     else:
-        print(f"{failed_cases}/{total_cases} Test Cases Failed ❎")
+        click.echo(f"{failed_cases}/{total_cases} Test Cases Failed ❎")
 
 
 def get_test_cases(tests_file):
@@ -97,6 +123,10 @@ def compile_if_needed(program_file, language):
     file_to_run = program_file
     if language == "java":
         java_compile(program_file)
-        classname = program_file.stem
-        file_to_run = program_file.parent / (classname+".class")
+        file_to_run = program_file.with_suffix(".class")
+    elif language == "c":
+        file_to_run = c_compile(program_file)
+    elif language == "cpp":
+        file_to_run = cpp_compile(program_file)
+
     return file_to_run
