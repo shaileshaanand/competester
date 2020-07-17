@@ -10,7 +10,7 @@ larger amount of test cases.
 <img src="https://raw.githubusercontent.com/shaileshaanand/competester/master/docs/images/first.svg"/>
 
 -   [INSTALLATION](#installation)
--   [DESCRIPTION & USAGE](#description-&-usage)
+-   [DESCRIPTION & USAGE](#description--usage)
 -   [TEST CASES FORMAT](#test-cases-format)
 -   [OPTIONS](#options)
 -   [COMPILATION](#compilation)
@@ -19,12 +19,22 @@ larger amount of test cases.
 
 # INSTALLATION
 
-To install it using [pip](https://pip.pypa.io/) (for Linux, MacOS and Windows users)
+## Install using [pip](https://pip.pypa.io/)
 
-`sudo pip3 install --upgrade competest`
+### Linux (use pip if default version of python is 3.x on your distro):
 
-Alternatively, Windows users can download the latest competest.exe file from
-[releases](https://github.com/shaileshaanand/competester/releases/tag/v0.0.4).
+```
+sudo pip3 install --user --upgrade competest
+```
+
+### Windows:
+Run Powershell/cmd as admin and type:
+```
+pip install competest
+```
+
+**Alternatively, Windows users can download the latest competest.exe file from
+[releases](https://github.com/shaileshaanand/competester/releases/latest).**
 
 # DESCRIPTION & USAGE
 
@@ -53,12 +63,12 @@ competest python program.py -t test_cases.json
 The test case file should contain all the test cases that you want to test your
 code against.
 
-Note: The test case format is decided based on the file extension so the file
-extension must be `.txt` or `.json`.
+**Note: The test case format is decided based on the file extension so the file
+extension must be `.txt` or `.json`.**
 
 ## Test Cases can be written in 2 formats:
 
-## 1. Test cases can be in .txt format like this
+## 1. Test cases can be in .txt format
 
 ### Single Test Case:
 
@@ -70,7 +80,7 @@ extension must be `.txt` or `.json`.
 12
 ```
 
-Note: input is followed by output and separated by a blank line.
+**Note: input is followed by output and separated by a blank line.**
 
 ### Multiple Test Cases:
 
@@ -87,9 +97,11 @@ Note: input is followed by output and separated by a blank line.
 10
 ```
 
-## Note: Each test case is also separated by a blank line.
+**Note: Each test case is also separated by a blank line.**
 
-## 2. Test cases can be in json format like this:
+## 2. Test cases can also be in json format
+
+### Single Test Case:
 
 ```
 [
@@ -106,9 +118,9 @@ Note: input is followed by output and separated by a blank line.
 ]
 ```
 
-Note: `input` and `output` are arrays of strings where each string is a line of input/output
+**Note: `input` and `output` are arrays of strings where each string is a line of input/output**
 
-## For multiple test cases:
+### Multiple Test Cases:
 
 ```
 [
@@ -184,7 +196,7 @@ python3 run.py
 To run the tests use
 
 ```
-python3 tests/test_platform.py
+python3 run_tests.py
 ```
 
 ---
@@ -194,6 +206,7 @@ To build competest binary (install [pyinstaller](https://pypi.org/project/PyInst
 ```
 pyinstaller -F run.py
 ```
+The executable will be saved in `dist` folder.
 
 # TODO
 
