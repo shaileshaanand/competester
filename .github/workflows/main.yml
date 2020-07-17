@@ -23,7 +23,7 @@ jobs:
                   pip install --editable .
             - name: Run Tests
               run: |
-                  python3 tests/test_platform.py
+                  python3 run_tests.py
     test_windows:
         runs-on: windows-latest
         name: Windows Tests
@@ -48,7 +48,7 @@ jobs:
                   pip install --editable .
             - name: Run Tests
               run: |
-                  python tests/test_platform.py
+                  python run_tests.py
     publish_pypi:
         runs-on: ubuntu-latest
         name: Publish to pypi
