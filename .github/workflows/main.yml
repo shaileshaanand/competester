@@ -49,11 +49,11 @@ jobs:
             - name: Run Tests
               run: |
                   python run_tests.py
-    publish_pypi:
+    publish:
         runs-on: ubuntu-latest
-        name: Publish to pypi
+        name: Release and publish to pypi
         needs: [test_linux, test_windows]
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: github.ref =='refs/heads/master' && startsWith(github.event.head_commit.message, 'v') && endsWith(github.event.head_commit.message, 'release') && github.event_name!='pull_request'
         steps:
             - uses: actions/checkout@v2
             - name: Set up Python
@@ -65,6 +65,20 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install -r requirements.txt
                   pip install setuptools wheel twine
+            - name: Get release version
+              id: get_release_version
+              env:
+                  COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+              run: |
+                  echo "::set-output name=version::$(echo $COMMIT_MESSAGE|grep -P -o "v[\.0-9]+")"
+            - name: Create Release
+              id: create_release
+              uses: "marvinpinto/action-automatic-releases@latest"
+              with:
+                  prerelease: false
+                  repo_token: ${{ secrets.GITHUB_TOKEN }}
+                  automatic_release_tag: ${{ steps.get_release_version.outputs.version }}
+                  title: ${{ steps.get_release_version.outputs.version }}
             - name: Build and Publish
               env:
                   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
