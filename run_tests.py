@@ -1,6 +1,30 @@
 from click.testing import CliRunner
 import unittest
+from shutil import copyfile
+import os
 from competest import competest
+
+
+class TestAutodetect(unittest.TestCase):
+    def test_autodetect_json(self):
+        runner = CliRunner()
+        copyfile("cases_passing.json", "python_test.json")
+        result = runner.invoke(
+            competest.competest,
+            ["python", "python_test.py"]
+        )
+        os.remove("python_test.json")
+        self.assertTrue("All tests passed successfully." in result.output)
+
+    def test_autodetect_txt(self):
+        runner = CliRunner()
+        copyfile("cases_passing.txt", "python_test.txt")
+        result = runner.invoke(
+            competest.competest,
+            ["python", "python_test.py"]
+        )
+        os.remove("python_test.txt")
+        self.assertTrue("All tests passed successfully." in result.output)
 
 
 class TestPython(unittest.TestCase):
