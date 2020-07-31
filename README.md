@@ -28,7 +28,9 @@ sudo pip3 install --user --upgrade competest
 ```
 
 ### Windows:
+
 Run Powershell/cmd as admin and type:
+
 ```
 pip install competest
 ```
@@ -53,9 +55,18 @@ Usage:
 
 ```
 competest [OPTIONS] [python|java|pypy|exe] PROGRAM_FILE
+```
 
 Example:
-competest python program.py -t test_cases.json
+
+```
+competest python program1.py -t tests.json
+```
+
+If the test case file has the same name as the program file, `-t` option can be omitted. `competest` will then look for a `json` or a `txt` file with the same name as the program file in the same folder as the program file. If test case file is not found, it will thow an Error
+
+```
+competest python program1.py
 ```
 
 # TEST CASES FORMAT
@@ -206,6 +217,7 @@ To build competest binary (install [pyinstaller](https://pypi.org/project/PyInst
 ```
 pyinstaller -F run.py
 ```
+
 The executable will be saved in `dist` folder.
 
 # TODO
