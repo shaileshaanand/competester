@@ -108,7 +108,8 @@ def main(language, program_file, test_cases_in, compiler_args):
                 click.echo(
                     f"Required Output:\n{required_output}\n---------------")
                 click.echo(
-                    f"Actual Output:\n{actual_output}\n---------------\n(took {time_taken:.3f} seconds)\n")
+                    f"Actual Output:\n{actual_output}\n---------------\n(took\
+                        {time_taken:.3f} seconds)\n")
             else:
                 click.echo("---------------")
                 click.echo(f"Runtime Error: (took {time_taken:.3f} seconds)")
