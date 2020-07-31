@@ -50,11 +50,12 @@ else:
 @click.option("--test-cases", "-t",
               type=click.File("r"),
               help="File containing test cases.",
-              required=True)
+              required=False)
 @click.option("--compiler-args", "-a")
 def competest(language, program_file, test_cases, compiler_args):
-    """Run PROGRAM_FILE with test cases from the file specified in --test-cases
-    (or -t) option and check them against the correct output specified in the
+    """Run PROGRAM_FILE with test cases from the PROGRAM_FILE.txt or
+    PROGRAMFILE.json file or from the file specified in --test-cases (or -t)
+    option and check them against the correct output specified in the
     same file.
 
        Supported Languages: java, python, pypy and exe(i.e. compiled
@@ -62,9 +63,19 @@ def competest(language, program_file, test_cases, compiler_args):
     main(language, program_file, test_cases, compiler_args)
 
 
-def main(language, program_file, test_cases, compiler_args):
+def main(language, program_file, test_cases_in, compiler_args):
     program_file = pathlib.Path(program_file).resolve()
-    test_cases = get_test_cases(test_cases)
+
+    if test_cases_in is None:
+        if program_file.with_suffix(".txt").exists():
+            test_cases_in = open(program_file.with_suffix(".txt"), 'r')
+        elif program_file.with_suffix(".json").exists():
+            test_cases_in = open(program_file.with_suffix(".json"), 'r')
+        else:
+            raise BadParameter("Test case file is missing. Please use -t")
+
+    test_cases = get_test_cases(test_cases_in)
+    test_cases_in.close()
     if test_cases == "error":
         raise BadParameter(
             "invalid testcase file extension, should be .json or .txt")
