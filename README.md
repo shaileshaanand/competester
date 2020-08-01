@@ -160,7 +160,7 @@ extension must be `.txt` or `.json`.**
 # OPTIONS
 
 ```
- -t, --test-cases FILENAME          File containing test cases.  [required]
+ -t, --test-cases FILENAME          File containing test cases.
 
  -a, --compiler-args ARGUMENTS      command line arguments to be passed to
                                     compiler(for compiled languages only)
