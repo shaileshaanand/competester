@@ -3,6 +3,7 @@ import unittest
 from shutil import copyfile
 import os
 from competest import competest
+from pathlib import Path
 
 
 class TestAutodetect(unittest.TestCase):
@@ -54,6 +55,7 @@ class TestJava(unittest.TestCase):
             ["java", "java_test.java", "-t", "cases_passing.json"]
         )
         self.assertTrue("All tests passed successfully." in result.output)
+        self.assertFalse(Path("java_test.class").exists())
 
     def test_java_failing(self):
         runner = CliRunner()
@@ -73,6 +75,7 @@ class TestCpp(unittest.TestCase):
             ["cpp", "cpp_test.cpp", "-t", "cases_passing.json"]
         )
         self.assertTrue("All tests passed successfully." in result.output)
+        self.assertFalse(Path("cpp_test").exists())
 
     def test_cpp_failing(self):
         runner = CliRunner()
@@ -92,6 +95,7 @@ class TestC(unittest.TestCase):
             ["c", "c_test.c", "-t", "cases_passing.json"]
         )
         self.assertTrue("All tests passed successfully." in result.output)
+        self.assertFalse(Path("c_test").exists())
 
     def test_c_failing(self):
         runner = CliRunner()

@@ -1,5 +1,6 @@
 import click
 import sys
+import os
 import pathlib
 from time import time
 from click import BadParameter
@@ -115,6 +116,9 @@ def main(language, program_file, test_cases_in, compiler_args):
                 click.echo(f"Runtime Error: (took {time_taken:.3f} seconds)")
                 click.echo(process.stderr.decode().strip())
                 click.echo("---------------\n")
+
+    if file_to_run != program_file:
+        os.remove(file_to_run)
 
     if failed_cases == 0:
         click.echo("All tests passed successfully. ✅")
